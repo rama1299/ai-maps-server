@@ -4,6 +4,10 @@
 Backend server for Agentic AI, enabling users to query locations or points of interest and receive interactive maps (iframe embed or link) generated based on an LLM response.
 
 Note: This project uses Ollama as the LLM, and OpenStreetMap for map services due to Google Maps API payment constraints.
+
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ai-maps-client.vercel.app/)
+
 ## Features
 
 - LLM Integration
