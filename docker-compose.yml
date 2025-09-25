@@ -1,0 +1,63 @@
+version: "3.8"
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentic-server
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      CORS: '["http://localhost:4173"]'
+
+      # LLM (Ollama)
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: mistral
+      OLLAMA_TIMEOUT: 120000
+
+      # Redis
+      REDIS_URL: redis://redis:6379
+
+      # Rate Limiting
+      RATE_WINDOW_MS: 60000
+      RATE_MAX: 30
+
+      # API Key Management
+      API_KEYS: my-test-key-123
+
+      # Error Tracking
+      SENTRY_DSN: ""
+
+      # Observability
+      LOG_LEVEL: info
+      METRICS_PORT: 3001
+      METRICS_PATH: /metrics
+
+      # OSM Services
+      OSM_NOMINATIM_URL: https://nominatim.openstreetmap.org
+      OSM_OVERPASS_URL: https://overpass-api.de/api/interpreter
+    depends_on:
+      - ollama
+      - redis
+    restart: unless-stopped
+
+volumes:
+  ollama_models:

@@ -1,0 +1,41 @@
+# Node modules & logs
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+package-lock.json
+.pnpm-debug.log
+
+# Build output
+dist
+build
+coverage
+.cache
+.next
+
+# Env files (jangan ikut ke image, karena env di-set di docker-compose.yml)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE / Editor
+.vscode
+.idea
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+Dockerfile.dev
